@@ -808,6 +808,8 @@ constexpr const uint64_t HA_CREATE_USED_READ_ONLY{1ULL << 34};
 */
 constexpr const uint64_t HA_CREATE_USED_AUTOEXTEND_SIZE{1ULL << 35};
 
+constexpr const uint64_t HA_CREATE_USED_DPT{1ULL << 36};
+
 /*
   End of bits used in used_fields
 */
@@ -3216,6 +3218,7 @@ struct HA_CREATE_INFO {
   ulonglong auto_increment_value{0};
   ulong table_options{0};
   ulong avg_row_length{0};
+  ulong dpt{0};
   uint64_t used_fields{0};
   // Can only be 1,2,4,8 or 16, but use uint32_t since that how it is
   // represented in InnoDB
@@ -4027,6 +4030,7 @@ class ha_statistics {
   ha_rows records;
   ha_rows deleted;       /* Deleted records */
   ulong mean_rec_length; /* physical reclength */
+  ulong dpt;
   /* TODO: create_time should be retrieved from the new DD. Remove this. */
   time_t create_time; /* When table was created */
   ulong check_time;
@@ -4055,6 +4059,7 @@ class ha_statistics {
         records(0),
         deleted(0),
         mean_rec_length(0),
+        dpt(0),
         create_time(0),
         check_time(0),
         update_time(0),
@@ -4167,9 +4172,7 @@ class Ft_hints {
 
      @return pointer to ft_hints struct
    */
-  struct ft_hints *get_hints() {
-    return &hints;
-  }
+  struct ft_hints *get_hints() { return &hints; }
 };
 
 /**

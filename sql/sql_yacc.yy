@@ -1447,6 +1447,9 @@ void warn_on_deprecated_user_defined_collation(
 %token<lexer.keyword> PARALLEL_SYM       1208      /* MYSQL */
 %token<lexer.keyword> S3_SYM             1209      /* MYSQL */
 %token<lexer.keyword> QUALIFY_SYM        1210      /* MYSQL */
+
+%token<lexer.keyword> DPT_SYM                    1211   /* BU-DISC */
+
 /*
   Precedence rules used to resolve the ambiguity when using keywords as idents
   in the case e.g.:
@@ -6777,6 +6780,11 @@ opt_comma:
         ;
 
 create_table_option:
+          DPT_SYM opt_equal ulonglong_num
+          {
+            $$= NEW_PTN PT_create_dpt_option($3);
+          }
+        |
           ENGINE_SYM opt_equal ident_or_text
           {
             $$= NEW_PTN PT_create_table_engine_option(@$, to_lex_cstring($3));
@@ -15632,6 +15640,7 @@ ident_keywords_unambiguous:
         | DISABLE_SYM
         | DISCARD_SYM
         | DISK_SYM
+        | DPT_SYM
         | DUMPFILE
         | DUPLICATE_SYM
         | DYNAMIC_SYM
