@@ -1385,6 +1385,8 @@ void warn_about_deprecated_binary(THD *thd)
 %token<lexer.keyword> URL_SYM                    1202   /* MYSQL */
 %token<lexer.keyword> GENERATE_SYM               1203   /* MYSQL */
 
+%token<lexer.keyword> DPT_SYM                    1204   /* BU-DISC */
+
 /*
   Precedence rules used to resolve the ambiguity when using keywords as idents
   in the case e.g.:
@@ -6688,6 +6690,11 @@ opt_comma:
         ;
 
 create_table_option:
+          DPT_SYM opt_equal ulonglong_num
+          {
+            $$= NEW_PTN PT_create_dpt_option($3);
+          }
+        |
           ENGINE_SYM opt_equal ident_or_text
           {
             $$= NEW_PTN PT_create_table_engine_option(to_lex_cstring($3));
@@ -6848,7 +6855,7 @@ create_table_option:
         | START_SYM TRANSACTION_SYM
           {
             $$= NEW_PTN PT_create_start_transaction_option(true);
-	  }
+          }
         | ENGINE_ATTRIBUTE_SYM opt_equal json_attribute
           {
             $$ = make_table_engine_attribute(YYMEM_ROOT, $3);
@@ -15316,6 +15323,7 @@ ident_keywords_unambiguous:
         | DISABLE_SYM
         | DISCARD_SYM
         | DISK_SYM
+        | DPT_SYM
         | DUMPFILE
         | DUPLICATE_SYM
         | DYNAMIC_SYM
