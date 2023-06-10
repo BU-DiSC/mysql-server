@@ -2560,7 +2560,7 @@ class Item_func_internal_dpt : public Item_int_func {
   const char *func_name() const override { return "internal_dpt"; }
   bool resolve_type(THD *) override {
     set_nullable(true);
-    unsigned_flag = true;
+    unsigned_flag = false;
     null_on_null = false;
     return false;
   }

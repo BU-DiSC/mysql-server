@@ -2366,15 +2366,6 @@ class PT_traceable_create_table_option : public PT_create_table_option {
 #define TYPE_AND_REF(x) decltype(x), &x
 
 /**
-  Node for the @SQL{DPT [=] @B{@<integer@>}} table option
-
-  @ingroup ptn_create_or_alter_table_options
-*/
-typedef PT_traceable_create_table_option<TYPE_AND_REF(HA_CREATE_INFO::dpt),
-                                         HA_CREATE_USED_DPT>
-    PT_create_dpt_option;
-
-/**
   Node for the @SQL{MAX_ROWS [=] @B{@<integer@>}} table option
 
   @ingroup ptn_create_or_alter_table_options
@@ -2400,6 +2391,15 @@ typedef PT_traceable_create_table_option<TYPE_AND_REF(HA_CREATE_INFO::min_rows),
 typedef PT_traceable_create_table_option<
     TYPE_AND_REF(HA_CREATE_INFO::avg_row_length), HA_CREATE_USED_AVG_ROW_LENGTH>
     PT_create_avg_row_length_option;
+
+/**
+  Node for the @SQL{DPT [=] @B{@<integer@>}} table option
+  
+  @ingroup ptn_create_or_alter_table_options
+*/
+typedef PT_traceable_create_table_option<TYPE_AND_REF(HA_CREATE_INFO::dpt),
+                                         HA_CREATE_USED_DPT>
+    PT_create_dpt_option;
 
 /**
   Node for the @SQL{PASSWORD [=] @B{@<string@>}} table option
