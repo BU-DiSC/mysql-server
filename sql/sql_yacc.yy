@@ -6709,7 +6709,7 @@ opt_comma:
         ;
 
 create_table_option:
-          DPT_SYM opt_equal ulonglong_num
+          DPT_SYM opt_equal signed_num
           {
             $$= NEW_PTN PT_create_dpt_option($3);
           }
