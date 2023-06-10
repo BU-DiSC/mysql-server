@@ -9319,13 +9319,13 @@ longlong Item_func_internal_avg_row_length::val_int() {
 longlong Item_func_internal_dpt::val_int() {
   DBUG_TRACE;
 
-  ulonglong result = 0;
+  longlong result = -1;
   // Read tables.options
   String option;
   String *option_ptr;
 
   if ((option_ptr = args[8]->val_str(&option)) == nullptr) {
-    return 0;
+    return result;
   }
 
   // Read required values from properties
@@ -9338,11 +9338,11 @@ longlong Item_func_internal_dpt::val_int() {
            option_ptr->c_ptr_safe());
     if (DBUG_EVALUATE_IF("continue_on_property_string_parse_failure", 0, 1))
       assert(false);
-    return 0;
+    return result;
   }
 
   if (p->exists("dpt")) {
-    uint opt_value = 0;
+    longlong opt_value = 0;
     p->get("dpt", &opt_value);
     result = opt_value;
   }
