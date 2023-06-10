@@ -78,8 +78,8 @@ class Table_stat : virtual public Entity_object {
   // dpt.
   /////////////////////////////////////////////////////////////////////////
 
-  virtual ulonglong dpt() const = 0;
-  virtual void set_dpt(ulonglong dpt) = 0;
+  virtual longlong dpt() const = 0;
+  virtual void set_dpt(longlong dpt) = 0;
 
   /////////////////////////////////////////////////////////////////////////
   // data_length.

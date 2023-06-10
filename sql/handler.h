@@ -59,7 +59,7 @@
 #include "my_io.h"
 #include "my_sys.h"
 #include "my_table_map.h"
-#include "my_thread_local.h"  // my_errno
+#include "my_thread_local.h"            // my_errno
 #include "mysql/components/services/bits/psi_table_bits.h"
 #include "mysql/strings/m_ctype.h"
 #include "sql/dd/object_id.h"  // dd::Object_id
@@ -3218,7 +3218,7 @@ struct HA_CREATE_INFO {
   ulonglong auto_increment_value{0};
   ulong table_options{0};
   ulong avg_row_length{0};
-  ulong dpt{0};
+  int dpt{-1};
   uint64_t used_fields{0};
   // Can only be 1,2,4,8 or 16, but use uint32_t since that how it is
   // represented in InnoDB
@@ -4030,7 +4030,7 @@ class ha_statistics {
   ha_rows records;
   ha_rows deleted;       /* Deleted records */
   ulong mean_rec_length; /* physical reclength */
-  ulong dpt;
+  int dpt;           /* DPT */
   /* TODO: create_time should be retrieved from the new DD. Remove this. */
   time_t create_time; /* When table was created */
   ulong check_time;
@@ -4059,7 +4059,7 @@ class ha_statistics {
         records(0),
         deleted(0),
         mean_rec_length(0),
-        dpt(0),
+        dpt(-1),
         create_time(0),
         check_time(0),
         update_time(0),
@@ -7644,7 +7644,7 @@ class ha_tablespace_statistics {
   dd::String_type m_row_format;  // NDB only
   ulonglong m_data_free;         // InnoDB
   dd::String_type m_status;
-  dd::String_type m_extra;  // NDB only
+  dd::String_type m_extra;       // NDB only
 };
 
 #endif /* HANDLER_INCLUDED */

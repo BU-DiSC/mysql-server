@@ -3300,14 +3300,12 @@ String *Item_func_weight_string::val_str(String *str) {
     explicitly, otherwise calculate result length
     from argument and "num_codepoints".
   */
-  output_buf_size =
-      m_field_ref != nullptr
-          ? m_field_ref->field->pack_length()
-          : result_length > 0
-                ? result_length
-                : cs->coll->strnxfrmlen(
-                      cs, cs->mbmaxlen *
-                              max<size_t>(input->length(), num_codepoints));
+  output_buf_size = m_field_ref != nullptr ? m_field_ref->field->pack_length()
+                    : result_length > 0
+                        ? result_length
+                        : cs->coll->strnxfrmlen(
+                              cs, cs->mbmaxlen * max<size_t>(input->length(),
+                                                             num_codepoints));
 
   /*
     my_strnxfrm() with an odd number of bytes is illegal for some collations;
@@ -4182,11 +4180,10 @@ String *Item_func_uncompress::val_str(String *str) {
                                : ((err == Z_MEM_ERROR) ? ER_ZLIB_Z_MEM_ERROR
                                                        : ER_ZLIB_Z_DATA_ERROR));
   push_warning(current_thd, Sql_condition::SL_WARNING, code,
-               err == Z_BUF_ERROR
-                   ? ER_THD(current_thd, ER_ZLIB_Z_BUF_ERROR)
-                   : (err == Z_MEM_ERROR)
-                         ? ER_THD(current_thd, ER_ZLIB_Z_MEM_ERROR)
-                         : ER_THD(current_thd, ER_ZLIB_Z_DATA_ERROR));
+               err == Z_BUF_ERROR ? ER_THD(current_thd, ER_ZLIB_Z_BUF_ERROR)
+               : (err == Z_MEM_ERROR)
+                   ? ER_THD(current_thd, ER_ZLIB_Z_MEM_ERROR)
+                   : ER_THD(current_thd, ER_ZLIB_Z_DATA_ERROR));
 
 err:
   null_value = true;
@@ -4500,12 +4497,10 @@ String *Item_func_get_dd_create_options::val_str(String *str) {
   }
 
   if (p->exists("dpt")) {
-    uint opt_value = 0;
+    int opt_value = -1;
     p->get("dpt", &opt_value);
-    if (opt_value != 0) {
-      ptr = my_stpcpy(ptr, " dpt=");
-      ptr = longlong10_to_str(opt_value, ptr, 10);
-    }
+    ptr = my_stpcpy(ptr, " dpt=");
+    ptr = longlong10_to_str(opt_value, ptr, -10);
   }
 
   if (p->exists("row_type")) {

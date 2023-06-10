@@ -2088,7 +2088,6 @@ static bool fill_dd_table_from_create_info(
   //
   // Set other table options.
   //
-  
   table_options->set("dpt", create_info->dpt);
 
   table_options->set("avg_row_length", create_info->avg_row_length);
