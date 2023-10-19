@@ -1138,6 +1138,9 @@ Sql_cmd *PT_insert::make_cmd(THD *thd) {
     sql_cmd->update_value_list = opt_on_duplicate_value_list->value;
   }
 
+  sql_cmd->dpt = dpt ? dpt : -1;
+  DBUG_PRINT("Insert DPT: ", ("%d", sql_cmd->dpt));
+
   return sql_cmd;
 }
 

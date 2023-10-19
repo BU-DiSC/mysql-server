@@ -13120,6 +13120,7 @@ insert_stmt:
           insert_from_constructor      /* #7 */
           opt_values_reference         /* #8 */
           opt_insert_update_list       /* #9 */
+          opt_lethe                    /* #10 */
           {
             DBUG_EXECUTE_IF("bug29614521_simulate_oom",
                              DBUG_SET("+d,simulate_out_of_memory"););
@@ -13127,7 +13128,8 @@ insert_stmt:
                                   $7.column_list, $7.row_value_list,
                                   NULL,
                                   $8.table_alias, $8.column_list,
-                                  $9.column_list, $9.value_list);
+                                  $9.column_list, $9.value_list,
+                                  $10);
             DBUG_EXECUTE_IF("bug29614521_simulate_oom",
                             DBUG_SET("-d,bug29614521_simulate_oom"););
           }
@@ -13141,6 +13143,7 @@ insert_stmt:
           update_list                  /* #8 */
           opt_values_reference         /* #9 */
           opt_insert_update_list       /* #10 */
+          opt_lethe                    /* #11 */
           {
             PT_insert_values_list *one_row= NEW_PTN PT_insert_values_list(YYMEM_ROOT);
             if (one_row == NULL || one_row->push_back(&$8.value_list->value))
@@ -13149,7 +13152,8 @@ insert_stmt:
                                   $8.column_list, one_row,
                                   NULL,
                                   $9.table_alias, $9.column_list,
-                                  $10.column_list, $10.value_list);
+                                  $10.column_list, $10.value_list,
+                                  $11);
           }
         | INSERT_SYM                   /* #1 */
           insert_lock_option           /* #2 */
@@ -13159,12 +13163,14 @@ insert_stmt:
           opt_use_partition            /* #6 */
           insert_query_expression      /* #7 */
           opt_insert_update_list       /* #8 */
+          opt_lethe                    /* #9 */
           {
             $$= NEW_PTN PT_insert(false, $1, $2, $3, $5, $6,
                                   $7.column_list, NULL,
                                   $7.insert_query_expression,
                                   NULL_CSTR, NULL,
-                                  $8.column_list, $8.value_list);
+                                  $8.column_list, $8.value_list
+                                  $9);
           }
         ;
 
@@ -13425,6 +13431,17 @@ opt_insert_update_list:
         | ON_SYM DUPLICATE_SYM KEY_SYM UPDATE_SYM update_list
           {
             $$= $5;
+          }
+        ;
+
+opt_lethe:
+          /* empty */
+          {
+            $$= NULL;
+          }
+        | DPT_SYM '(' signed_num ')'
+          {
+            $$= $3;
           }
         ;
 

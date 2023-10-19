@@ -264,6 +264,9 @@ class Sql_cmd_insert_base : public Sql_cmd_dml {
   /// True if VALUES clause contain column references that need privilege check
   bool values_need_privilege_check{false};
 
+  /// DPT value
+  int dpt;
+
   /// Number of columns in original insert column list
   uint column_count;
 
