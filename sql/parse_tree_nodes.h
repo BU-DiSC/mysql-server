@@ -2041,6 +2041,7 @@ class PT_insert final : public Parse_tree_root {
   Create_col_name_list *const opt_values_column_list;
   PT_item_list *const opt_on_duplicate_column_list;
   PT_item_list *const opt_on_duplicate_value_list;
+  Mem_root_array<int64_t> *const opt_lethe_list;
 
  public:
   PT_insert(const POS &pos, bool is_replace_arg, PT_hint_list *opt_hints_arg,
@@ -2052,7 +2053,7 @@ class PT_insert final : public Parse_tree_root {
             const LEX_CSTRING &opt_values_table_alias_arg,
             Create_col_name_list *opt_values_column_list_arg,
             PT_item_list *opt_on_duplicate_column_list_arg,
-            PT_item_list *opt_on_duplicate_value_list_arg)
+            Mem_root_array<int64_t> *opt_lethe_list_arg)
       : super(pos),
         is_replace(is_replace_arg),
         opt_hints(opt_hints_arg),
@@ -2066,7 +2067,8 @@ class PT_insert final : public Parse_tree_root {
         opt_values_table_alias(opt_values_table_alias_arg.str),
         opt_values_column_list(opt_values_column_list_arg),
         opt_on_duplicate_column_list(opt_on_duplicate_column_list_arg),
-        opt_on_duplicate_value_list(opt_on_duplicate_value_list_arg) {
+        opt_on_duplicate_value_list(opt_on_duplicate_value_list_arg),
+        opt_lethe_list(opt_lethe_list_arg) {
     // REPLACE statement can't have IGNORE flag:
     assert(!is_replace || !ignore);
     // REPLACE statement can't have ON DUPLICATE KEY UPDATE clause:
@@ -2591,7 +2593,7 @@ typedef PT_traceable_create_table_option<
 
 /**
   Node for the @SQL{DPT [=] @B{@<integer@>}} table option
-  
+
   @ingroup ptn_create_or_alter_table_options
 */
 typedef PT_traceable_create_table_option<TYPE_AND_REF(HA_CREATE_INFO::dpt),
@@ -5211,9 +5213,9 @@ class PT_alter_tablespace_option final
   const Option_type m_value;
 };
 
-typedef PT_alter_tablespace_option<decltype(
-                                       Tablespace_options::autoextend_size),
-                                   &Tablespace_options::autoextend_size>
+typedef PT_alter_tablespace_option<
+    decltype(Tablespace_options::autoextend_size),
+    &Tablespace_options::autoextend_size>
     PT_alter_tablespace_option_autoextend_size;
 
 typedef PT_alter_tablespace_option<decltype(Tablespace_options::extent_size),
@@ -5228,14 +5230,14 @@ typedef PT_alter_tablespace_option<decltype(Tablespace_options::max_size),
                                    &Tablespace_options::max_size>
     PT_alter_tablespace_option_max_size;
 
-typedef PT_alter_tablespace_option<decltype(
-                                       Tablespace_options::redo_buffer_size),
-                                   &Tablespace_options::redo_buffer_size>
+typedef PT_alter_tablespace_option<
+    decltype(Tablespace_options::redo_buffer_size),
+    &Tablespace_options::redo_buffer_size>
     PT_alter_tablespace_option_redo_buffer_size;
 
-typedef PT_alter_tablespace_option<decltype(
-                                       Tablespace_options::undo_buffer_size),
-                                   &Tablespace_options::undo_buffer_size>
+typedef PT_alter_tablespace_option<
+    decltype(Tablespace_options::undo_buffer_size),
+    &Tablespace_options::undo_buffer_size>
     PT_alter_tablespace_option_undo_buffer_size;
 
 typedef PT_alter_tablespace_option<

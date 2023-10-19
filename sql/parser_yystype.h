@@ -549,6 +549,8 @@ union MY_SQL_PARSER_STYPE {
   PT_create_table_option *create_table_option;
   Mem_root_array<PT_create_table_option *> *create_table_options;
   Mem_root_array<PT_ddl_table_option *> *space_separated_alter_table_opts;
+  int64_t lethe_option;
+  Mem_root_array<int64_t> *lethe_options;
   On_duplicate on_duplicate;
   PT_column_attr_base *col_attr;
   column_format_type column_format;
