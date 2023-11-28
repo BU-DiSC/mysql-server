@@ -1448,7 +1448,7 @@ void warn_on_deprecated_user_defined_collation(
 %token<lexer.keyword> S3_SYM             1209      /* MYSQL */
 %token<lexer.keyword> QUALIFY_SYM        1210      /* MYSQL */
 
-%token<lexer.keyword> DPT_SYM                    1211   /* BU-DISC */
+%token<lexer.keyword> DPT_SYM                    1211   /* BU-DISC-R */
 
 /*
   Precedence rules used to resolve the ambiguity when using keywords as idents
@@ -15676,7 +15676,6 @@ ident_keywords_unambiguous:
         | DISABLE_SYM
         | DISCARD_SYM
         | DISK_SYM
-        | DPT_SYM
         | DUMPFILE
         | DUPLICATE_SYM
         | DYNAMIC_SYM

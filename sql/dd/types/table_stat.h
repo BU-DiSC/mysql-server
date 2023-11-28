@@ -75,11 +75,11 @@ class Table_stat : virtual public Entity_object {
   virtual void set_avg_row_length(ulonglong avg_row_length) = 0;
 
   /////////////////////////////////////////////////////////////////////////
-  // dpt.
+  // data_persistence_threshold.
   /////////////////////////////////////////////////////////////////////////
 
-  virtual longlong dpt() const = 0;
-  virtual void set_dpt(longlong dpt) = 0;
+  virtual longlong data_persistence_threshold() const = 0;
+  virtual void set_dpt(longlong data_persistence_threshold) = 0;
 
   /////////////////////////////////////////////////////////////////////////
   // data_length.

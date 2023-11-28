@@ -1202,8 +1202,8 @@ Sql_cmd *PT_insert::make_cmd(THD *thd) {
   }
 
   if (opt_lethe_list != nullptr) {
-    sql_cmd->dpt = opt_lethe_list->at(0);
-    DBUG_PRINT("info", ("Insert with DPT: %ld", sql_cmd->dpt));
+    sql_cmd->data_persistence_threshold = opt_lethe_list->at(0);
+    DBUG_PRINT("info", ("Insert with DPT: %ld", sql_cmd->data_persistence_threshold));
   }
 
   return sql_cmd;

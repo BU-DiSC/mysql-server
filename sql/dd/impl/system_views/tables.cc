@@ -103,13 +103,13 @@ Tables::Tables() {
                          "  ts.se_private_data,"
                          "  COALESCE(stat.avg_row_length, 0),"
                          "  COALESCE(CAST(stat.cached_time as UNSIGNED), 0)))");
-  m_target_def.add_field(FIELD_DPT, "DPT",
+  m_target_def.add_field(FIELD_DPT, "DATA_PERSISTENCE_THRESHOLD",
                          "IF (tbl.type = 'VIEW', NULL,"
                          "INTERNAL_DPT(sch.name, tbl.name,"
                          "  IF(ISNULL(tbl.partition_type), tbl.engine, ''),"
                          "  tbl.se_private_id, tbl.hidden != 'Visible', "
                          "  ts.se_private_data,"
-                         "  COALESCE(stat.dpt, 0),"
+                         "  COALESCE(stat.data_persistence_threshold, 0),"
                          "  COALESCE(CAST(stat.cached_time as UNSIGNED), 0),"
                          "  tbl.options))");
   m_target_def.add_field(FIELD_DATA_LENGTH, "DATA_LENGTH",

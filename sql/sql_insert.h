@@ -265,7 +265,7 @@ class Sql_cmd_insert_base : public Sql_cmd_dml {
   bool values_need_privilege_check{false};
 
   /// DPT value
-  int64_t dpt;
+  int64_t data_persistence_threshold;
 
   /// Number of columns in original insert column list
   uint column_count;

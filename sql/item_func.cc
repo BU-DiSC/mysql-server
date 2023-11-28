@@ -9424,9 +9424,9 @@ longlong Item_func_internal_dpt::val_int() {
     return result;
   }
 
-  if (p->exists("dpt")) {
+  if (p->exists("data_persistence_threshold")) {
     longlong opt_value = 0;
-    p->get("dpt", &opt_value);
+    p->get("data_persistence_threshold", &opt_value);
     result = opt_value;
   }
 

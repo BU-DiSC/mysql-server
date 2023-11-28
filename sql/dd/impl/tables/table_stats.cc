@@ -42,7 +42,7 @@ Table_stats::Table_stats() {
                          "table_rows BIGINT UNSIGNED");
   m_target_def.add_field(FIELD_AVG_ROW_LENGTH, "FIELD_AVG_ROW_LENGTH",
                          "avg_row_length BIGINT UNSIGNED");
-  m_target_def.add_field(FIELD_DPT, "FIELD_DPT", "dpt BIGINT");
+  m_target_def.add_field(FIELD_DPT, "FIELD_DPT", "data_persistence_threshold BIGINT");
   m_target_def.add_field(FIELD_DATA_LENGTH, "FIELD_DATA_LENGTH",
                          "data_length BIGINT UNSIGNED");
   m_target_def.add_field(FIELD_MAX_DATA_LENGTH, "FIELD_MAX_DATA_LENGTH",

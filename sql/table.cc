@@ -3546,7 +3546,7 @@ void update_create_info_from_table(HA_CREATE_INFO *create_info, TABLE *table) {
   create_info->min_rows = share->min_rows;
   create_info->table_options = share->db_create_options;
   create_info->avg_row_length = share->avg_row_length;
-  create_info->dpt = share->dpt;
+  create_info->data_persistence_threshold = share->data_persistence_threshold;
   create_info->row_type = share->row_type;
   create_info->default_table_charset = share->table_charset;
   create_info->table_charset = nullptr;

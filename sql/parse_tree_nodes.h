@@ -2596,7 +2596,7 @@ typedef PT_traceable_create_table_option<
 
   @ingroup ptn_create_or_alter_table_options
 */
-typedef PT_traceable_create_table_option<TYPE_AND_REF(HA_CREATE_INFO::dpt),
+typedef PT_traceable_create_table_option<TYPE_AND_REF(HA_CREATE_INFO::data_persistence_threshold),
                                          HA_CREATE_USED_DPT>
     PT_create_dpt_option;
 

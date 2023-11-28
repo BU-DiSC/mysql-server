@@ -608,8 +608,8 @@ static bool fill_share_from_dd(THD *thd, TABLE_SHARE *share,
   bool bool_opt = false;
 
   // Data Persistence Threshold
-  if (table_options.exists("dpt"))
-    table_options.get("dpt", &share->dpt);
+  if (table_options.exists("data_persistence_threshold"))
+    table_options.get("data_persistence_threshold", &share->data_persistence_threshold);
 
   // Max rows
   if (table_options.exists("max_rows"))

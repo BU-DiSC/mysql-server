@@ -181,7 +181,7 @@ inline void setup_table_stats_record(THD *thd, dd::Table_stat *obj,
   obj->set_table_name(table_name);
   obj->set_table_rows(stats.records);
   obj->set_avg_row_length(stats.mean_rec_length);
-  obj->set_dpt(stats.dpt);
+  obj->set_dpt(stats.data_persistence_threshold);
   obj->set_data_length(stats.data_file_length);
   obj->set_max_data_length(stats.max_data_file_length);
   obj->set_index_length(stats.index_file_length);
@@ -408,8 +408,8 @@ ulonglong Table_statistics::get_stat(ha_statistics &stat,
     case enum_table_stats_type::TABLE_AVG_ROW_LENGTH:
       return (stat.mean_rec_length);
 
-    case enum_table_stats_type::DPT:
-      return (stat.dpt);
+    case enum_table_stats_type::DATA_PERSISTENCE_THRESHOLD:
+      return (stat.data_persistence_threshold);
 
     case enum_table_stats_type::DATA_LENGTH:
       return (stat.data_file_length);

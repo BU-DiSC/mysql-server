@@ -4496,10 +4496,10 @@ String *Item_func_get_dd_create_options::val_str(String *str) {
     }
   }
 
-  if (p->exists("dpt")) {
+  if (p->exists("data_persistence_threshold")) {
     int opt_value = -1;
-    p->get("dpt", &opt_value);
-    ptr = my_stpcpy(ptr, " dpt=");
+    p->get("data_persistence_threshold", &opt_value);
+    ptr = my_stpcpy(ptr, " data_persistence_threshold=");
     ptr = longlong10_to_str(opt_value, ptr, -10);
   }
 

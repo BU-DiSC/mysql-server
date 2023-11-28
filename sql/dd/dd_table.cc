@@ -2088,7 +2088,7 @@ static bool fill_dd_table_from_create_info(
   //
   // Set other table options.
   //
-  table_options->set("dpt", create_info->dpt);
+  table_options->set("data_persistence_threshold", create_info->data_persistence_threshold);
 
   table_options->set("avg_row_length", create_info->avg_row_length);
 

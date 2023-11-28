@@ -55,7 +55,7 @@ class Table_stat_impl : public Entity_object_impl, public Table_stat {
   Table_stat_impl()
       : m_table_rows(0),
         m_avg_row_length(0),
-        m_dpt(-1),
+        m_data_persistence_threshold(-1),
         m_data_length(0),
         m_max_data_length(0),
         m_index_length(0),
@@ -120,12 +120,12 @@ class Table_stat_impl : public Entity_object_impl, public Table_stat {
   }
 
   /////////////////////////////////////////////////////////////////////////
-  // dpt.
+  // data_persistence_threshold.
   /////////////////////////////////////////////////////////////////////////
 
-  longlong dpt() const override { return m_dpt; }
+  longlong data_persistence_threshold() const override { return m_data_persistence_threshold; }
 
-  void set_dpt(longlong dpt) override { m_dpt = dpt; }
+  void set_dpt(longlong data_persistence_threshold) override { m_data_persistence_threshold = data_persistence_threshold; }
 
   /////////////////////////////////////////////////////////////////////////
   // data_length.
@@ -240,7 +240,7 @@ class Table_stat_impl : public Entity_object_impl, public Table_stat {
 
   ulonglong m_table_rows;
   ulonglong m_avg_row_length;
-  longlong m_dpt;
+  longlong m_data_persistence_threshold;
   ulonglong m_data_length;
   ulonglong m_max_data_length;
   ulonglong m_index_length;
