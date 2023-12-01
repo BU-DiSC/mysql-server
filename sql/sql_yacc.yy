@@ -13705,8 +13705,9 @@ delete_stmt:
           opt_where_clause
           opt_order_clause
           opt_simple_limit
+          opt_lethe_options
           {
-            $$= NEW_PTN PT_delete(@$, $1, $2, $3, $5, $6, $7, $8, $9, $10);
+            $$= NEW_PTN PT_delete($1, $2, $3, $5, $6, $7, $8, $9, $10, $11);
           }
         | opt_with_clause
           DELETE_SYM

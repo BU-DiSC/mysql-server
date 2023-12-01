@@ -1902,6 +1902,7 @@ class PT_delete final : public Parse_tree_root {
   Item *opt_where_clause;
   PT_order *opt_order_clause;
   Item *opt_delete_limit_clause;
+  Mem_root_array<int64_t> *const opt_lethe_list;
   SQL_I_List<Table_ref> delete_tables;
 
  public:
@@ -1911,9 +1912,9 @@ class PT_delete final : public Parse_tree_root {
             Table_ident *table_ident_arg,
             const LEX_CSTRING &opt_table_alias_arg,
             List<String> *opt_use_partition_arg, Item *opt_where_clause_arg,
-            PT_order *opt_order_clause_arg, Item *opt_delete_limit_clause_arg)
-      : super(pos),
-        m_with_clause(with_clause_arg),
+            PT_order *opt_order_clause_arg, Item *opt_delete_limit_clause_arg,
+            Mem_root_array<int64_t> *opt_lethe_list_arg)
+      : m_with_clause(with_clause_arg),
         opt_hints(opt_hints_arg),
         opt_delete_options(opt_delete_options_arg),
         table_ident(table_ident_arg),
@@ -1921,7 +1922,8 @@ class PT_delete final : public Parse_tree_root {
         opt_use_partition(opt_use_partition_arg),
         opt_where_clause(opt_where_clause_arg),
         opt_order_clause(opt_order_clause_arg),
-        opt_delete_limit_clause(opt_delete_limit_clause_arg) {
+        opt_delete_limit_clause(opt_delete_limit_clause_arg),
+        opt_lethe_list(opt_lethe_list_arg) {
     table_list.init_empty_const();
     join_table_list.init_empty_const();
   }
@@ -1943,7 +1945,8 @@ class PT_delete final : public Parse_tree_root {
         join_table_list(join_table_list_arg),
         opt_where_clause(opt_where_clause_arg),
         opt_order_clause(nullptr),
-        opt_delete_limit_clause(nullptr) {}
+        opt_delete_limit_clause(nullptr),
+        opt_lethe_list(nullptr) {}
 
   Sql_cmd *make_cmd(THD *thd) override;
 
@@ -2596,8 +2599,9 @@ typedef PT_traceable_create_table_option<
 
   @ingroup ptn_create_or_alter_table_options
 */
-typedef PT_traceable_create_table_option<TYPE_AND_REF(HA_CREATE_INFO::data_persistence_threshold),
-                                         HA_CREATE_USED_DPT>
+typedef PT_traceable_create_table_option<
+    TYPE_AND_REF(HA_CREATE_INFO::data_persistence_threshold),
+    HA_CREATE_USED_DPT>
     PT_create_dpt_option;
 
 /**

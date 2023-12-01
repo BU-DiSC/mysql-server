@@ -969,6 +969,10 @@ Sql_cmd *PT_delete::make_cmd(THD *thd) {
 
   if (opt_hints != nullptr && opt_hints->contextualize(&pc)) return nullptr;
 
+  if (opt_lethe_list != nullptr) {
+    DBUG_PRINT("info", ("DELETE with DPT: %ld", opt_lethe_list->at(0)));
+  }
+
   return new (thd->mem_root) Sql_cmd_delete(is_multitable(), &delete_tables);
 }
 
@@ -1203,7 +1207,7 @@ Sql_cmd *PT_insert::make_cmd(THD *thd) {
 
   if (opt_lethe_list != nullptr) {
     sql_cmd->data_persistence_threshold = opt_lethe_list->at(0);
-    DBUG_PRINT("info", ("Insert with DPT: %ld", sql_cmd->data_persistence_threshold));
+    DBUG_PRINT("info", ("INSERT with DPT: %ld", sql_cmd->data_persistence_threshold));
   }
 
   return sql_cmd;
