@@ -1449,6 +1449,7 @@ void warn_on_deprecated_user_defined_collation(
 %token<lexer.keyword> QUALIFY_SYM        1210      /* MYSQL */
 
 %token<lexer.keyword> DPT_SYM                    1211   /* BU-DISC-R */
+%token<lexer.keyword> RET_DUR_SYM                1212   /* BU-DISC-R */
 
 /*
   Precedence rules used to resolve the ambiguity when using keywords as idents
@@ -13631,6 +13632,10 @@ lethe_option_list:
 
 lethe_option:
           DPT_SYM '(' signed_num ')'
+          {
+            $$= $3;
+          }
+        | RET_DUR_SYM '(' signed_num ')'
           {
             $$= $3;
           }

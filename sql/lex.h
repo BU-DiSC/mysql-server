@@ -609,6 +609,7 @@ static const SYMBOL symbols[] = {
     {SYM("RETURN", RETURN_SYM)},
     {SYM("RETURNING", RETURNING_SYM)},
     {SYM("RETURNS", RETURNS_SYM)},
+    {SYM("RET_DUR", RET_DUR_SYM)},
     {SYM("REUSE", REUSE_SYM)},
     {SYM("REVERSE", REVERSE_SYM)},
     {SYM("REVOKE", REVOKE)},
